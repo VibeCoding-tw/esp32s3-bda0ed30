@@ -552,7 +552,9 @@ const char index_html[] = R"rawliteral(
 
 // 設置 HTTP Server 和 WebSocket
 void setupWebServer() {
-  String hostname = "esp32car-" + String((uint32_t)ESP.getEfuseMac(), HEX);
+  //String hostname = "esp32car-" + String((uint32_t)ESP.getEfuseMac(), HEX);
+  String hostname = "esp32s3-" + String(WiFi.macAddress());
+  hostname.replace(":", ""); // remove colons for clean name
   
   if (MDNS.begin(hostname.c_str())) {
     Serial.printf("mDNS responder started: %s.local\n", hostname.c_str());
@@ -585,7 +587,9 @@ void setupWebServer() {
 // ----------------------------------------------------------------------
 
 void setupOTA() {
-  String hostname = "esp32car-" + String((uint32_t)ESP.getEfuseMac(), HEX);
+  //String hostname = "esp32car-" + String((uint32_t)ESP.getEfuseMac(), HEX);
+  String hostname = "esp32s3-" + String(WiFi.macAddress());
+  hostname.replace(":", ""); // remove colons for clean name
   
   // 設定 OTA 參數
   ArduinoOTA.setHostname(hostname.c_str());
